@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLPP - Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    .card {
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      background-color: #6e8efb;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #5c7cea;
+    }
+    .petition-details {
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">SLPP Admin Dashboard</a>
+      <button class="btn btn-danger">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h3 class="text-center">Petitions Committee Dashboard</h3>
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card p-4">
+          <h5>Set Signature Threshold</h5>
+          <form id="threshold-form">
+            <div class="mb-3">
+              <label for="threshold" class="form-label">Threshold Value</label>
+              <input type="number" class="form-control" id="threshold" placeholder="Enter threshold value" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Set Threshold</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <h4>All Petitions</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Signatures</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="petition-table">
+          <tr data-petition-id="1">
+            <td>1</td>
+            <td>Need construction in society</td>
+            <td>Open</td>
+            <td>850</td>
+            <td><button class="btn btn-success btn-sm toggle-details">Respond</button></td>
+          </tr>
+          <tr class="petition-details" id="details-1">
+            <td colspan="5">
+              <div class="card p-3">
+                <h5>Respond to Petition</h5>
+                <textarea class="form-control mb-3" placeholder="Enter your response"></textarea>
+                <button class="btn btn-primary btn-sm">Submit Response</button>
+                <button class="btn btn-secondary btn-sm close-details">Close</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-petition-id="2">
+            <td>2</td>
+            <td>Water leakage reported</td>
+            <td>Open</td>
+            <td>500</td>
+            <td><button class="btn btn-success btn-sm toggle-details">Respond</button></td>
+          </tr>
+          <tr class="petition-details" id="details-2">
+            <td colspan="5">
+              <div class="card p-3">
+                <h5>Respond to Petition</h5>
+                <textarea class="form-control mb-3" placeholder="Enter your response"></textarea>
+                <button class="btn btn-primary btn-sm">Submit Response</button>
+                <button class="btn btn-secondary btn-sm close-details">Close</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-petition-id="3">
+            <td>3</td>
+            <td>Need to select leader</td>
+            <td>Open</td>
+            <td>354</td>
+            <td><button class="btn btn-success btn-sm toggle-details">Respond</button></td>
+          </tr>
+          <tr class="petition-details" id="details-3">
+            <td colspan="5">
+              <div class="card p-3">
+                <h5>Respond to Petition</h5>
+                <textarea class="form-control mb-3" placeholder="Enter your response"></textarea>
+                <button class="btn btn-primary btn-sm">Submit Response</button>
+                <button class="btn btn-secondary btn-sm close-details">Close</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.toggle-details').forEach(button => {
+      button.addEventListener('click', function () {
+        const petitionId = this.closest('tr').dataset.petitionId;
+        document.getElementById(`details-${petitionId}`).style.display = 'table-row';
+      });
+    });
+
+    document.querySelectorAll('.close-details').forEach(button => {
+      button.addEventListener('click', function () {
+        this.closest('.petition-details').style.display = 'none';
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

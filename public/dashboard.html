@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLPP - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    .card {
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h3 {
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #6e8efb;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #5c7cea;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">SLPP Dashboard</a>
+      <button class="btn btn-danger">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h3>Petitioner Dashboard</h3>
+    <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#createPetitionModal">Create New Petition</button>
+    <div class="row gy-4" id="petition-list">
+      <div class="col-sm-6 col-md-4">
+        <div class="card p-3">
+          <h5>Petition Title 1</h5>
+          <p>Status: Open</p>
+          <button class="btn btn-success btn-sm sign-petition">Sign Petition</button>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="card p-3">
+          <h5>Petition Title 2</h5>
+          <p>Status: Closed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Petition Modal -->
+  <div class="modal fade" id="createPetitionModal" tabindex="-1" aria-labelledby="createPetitionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createPetitionLabel">Create New Petition</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="create-petition-form">
+            <div class="mb-3">
+              <label for="petition-title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="petition-title" placeholder="Enter title" required>
+            </div>
+            <div class="mb-3">
+              <label for="petition-content" class="form-label">Content</label>
+              <textarea class="form-control" id="petition-content" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const petitionList = document.getElementById('petition-list');
+    const createPetitionForm = document.getElementById('create-petition-form');
+
+    // Handle petition creation
+    createPetitionForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById('petition-title').value;
+      const content = document.getElementById('petition-content').value;
+
+      // Create new petition card
+      const newPetition = document.createElement('div');
+      newPetition.classList.add('col-sm-6', 'col-md-4');
+      newPetition.innerHTML = `
+        <div class="card p-3">
+          <h5>${title}</h5>
+          <p>Status: Open</p>
+          <button class="btn btn-success btn-sm sign-petition">Sign Petition</button>
+        </div>
+      `;
+
+      petitionList.appendChild(newPetition);
+
+      
+      createPetitionForm.reset();
+      const createPetitionModal = bootstrap.Modal.getInstance(document.getElementById('createPetitionModal'));
+      createPetitionModal.hide();
+
+      
+      newPetition.querySelector('.sign-petition').addEventListener('click', handleSignPetition);
+    });
+
+    
+    function handleSignPetition() {
+      alert('You have signed this petition!');
+    }
+
+    
+    document.querySelectorAll('.sign-petition').forEach(button => {
+      button.addEventListener('click', handleSignPetition);
+    });
+  </script>
+    <script src="scripts.js"></script>
+
+</body>
+</html>
